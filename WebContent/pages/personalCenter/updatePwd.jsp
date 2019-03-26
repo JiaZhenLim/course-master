@@ -131,11 +131,6 @@
         });
     }
 
-    function reset(){
-        $(".js_newPwd").val("");
-        $(".js_oldPwd").val("");
-        $(".js_confirmPwd").val("");
-    }
 
 </script>
 </body>
