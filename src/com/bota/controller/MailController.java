@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.xml.bind.SchemaOutputResolver;
 import java.util.Properties;
 
 /**
@@ -32,7 +33,6 @@ public class MailController {
                             @RequestParam(value = "courseNames[]") String[] courseNames){
         //发送人邮箱
        final String from = "821788582@qq.com";
-
 
         //指定服务器主机为smtp.qq.com
         String host = "smtp.qq.com";
@@ -66,12 +66,18 @@ public class MailController {
             int num = receivers.length;
             InternetAddress internetAddress = null;
             for(int i= 0; i < num; i++){
+                if(receivers[i].isEmpty() ){
+                    continue;
+                }
                 internetAddress = new InternetAddress(receivers[i]);
                 mimeMessage.setRecipient(Message.RecipientType.TO,
                         internetAddress);
 
                 //设置主题
                 mimeMessage.setSubject(courseNames[i] + "参加提醒");
+
+                System.out.println(courseNames[i]);
+                System.out.println(i);
 
                 //设置正文
                 mimeMessage.setText("亲爱的" +names[i]+ "同学：" +
