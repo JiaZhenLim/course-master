@@ -23,9 +23,4 @@ public class DateStrConvert {
 			}
 			return date;
 	 }
-	 
-	 public static void main(String[] args) {
-		String date = "2015-10-22";
-		System.out.println(strToDate(date, "yyyy-MM-dd HH:mm:ss"));
-	}
 }

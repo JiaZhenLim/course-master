@@ -8,7 +8,6 @@ import com.bota.bean.Course;
 public interface CourseService {
 	/**
 	 * 根据活动号查询该活动是否存在
-	 * @author bota
 	 * @param courseNumber
 	 * @return
 	 */

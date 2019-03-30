@@ -60,17 +60,14 @@
                                         <c:if test="${major.id == specialtyId}">selected</c:if>>${major.name }</option>
                             </c:forEach>
                         </select>
-											
-											
-											<span class="input-icon">
-												<input type="text" value="${search }" placeholder="活动名或者编号或组织或社团 ..."
-                                                       class="js_search nav-search-input" id="nav-search-input"
-                                                       autocomplete="off"/>
-												<button class="btn btn-info" type="button" onclick="selectCourse(1)">
-                                                    <i class="icon-search bigger-110"></i>
-                                                    搜索
-                                                </button>
-											</span>
+                        <span class="input-icon">
+							<input type="text" value="${search }" placeholder="活动名或者编号或组织或社团 ..."
+                                   class="js_search nav-search-input" id="nav-search-input" autocomplete="off"/>
+							<button class="btn btn-info" type="button" onclick="selectCourse(1)">
+                                                    <i class="icon-search bigger-110"></i>搜索
+
+                             </button>
+                        </span>
                     </div>
                 </c:if>
 
@@ -85,7 +82,7 @@
                                 <tr>
                                     <th class="center">
                                         <label>
-                                            <input type="checkbox" class="ace"/>
+                                            <input type="checkbox" class="ace" onclick="allOrNotAll(checked)"/>
                                             <span class="lbl"></span>
                                         </label>
                                     </th>
@@ -110,7 +107,7 @@
                                     <tr>
                                         <th class="center">
                                             <label>
-                                                <input type="checkbox" class="ace"/>
+                                                <input type="checkbox" class="ace" id="{user.userNumber}"/>
                                                 <span class="lbl"></span>
                                             </label>
                                         </th>
@@ -152,9 +149,7 @@
                                                     <a class="blue" href="addCoursePage.do">
                                                         <i class="icon-plus-sign bigger-130"></i>
                                                     </a>
-                                                    <!-- <a class="blue" href="#">
-                                                        <i class="icon-zoom-in bigger-130"></i>
-                                                    </a> -->
+
 
                                                     <a class="green" href="editCoursePage.do?id=${course.id }">
                                                         <i class="icon-pencil bigger-130"></i>
@@ -184,12 +179,6 @@
                                                     <button class="btn  btn-sm btn-primary ">申请中</button>
 
                                                     <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-caret dropdown-close pull-right">
-                                                        <!-- 																			<li> -->
-                                                        <!-- 																				<a href="#" class="tooltip-success" data-rel="tooltip" title="Mark&nbsp;as&nbsp;done"> -->
-                                                        <!-- 																					<span class="orange">待查看 -->
-                                                        <!-- 																					</span> -->
-                                                        <!-- 																				</a> -->
-                                                        <!-- 																			</li> -->
                                                     </ul>
                                                 </c:if>
                                                 <c:if test="${course.isAgree == null}">
@@ -243,10 +232,6 @@
 
                                                     <div class="inline dropdown-hover">
                                                         <button class="btn  btn-sm btn-success ">已修改</button>
-
-                                                        <!-- 																<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-caret dropdown-close pull-right"> -->
-                                                        <!-- 																		</ul> -->
-
                                                     </div>
                                                 </c:if>
 
@@ -304,27 +289,27 @@
                                                         <li>
                                                             <a href="#" class="tooltip-info" data-rel="tooltip"
                                                                title="View">
-																				<span class="blue">
-																					<i class="icon-zoom-in bigger-120"></i>
-																				</span>
+																<span class="blue">
+																		<i class="icon-zoom-in bigger-120"></i>
+																</span>
                                                             </a>
                                                         </li>
 
                                                         <li>
                                                             <a href="#" class="tooltip-success" data-rel="tooltip"
                                                                title="Edit">
-																				<span class="green">
-																					<i class="icon-edit bigger-120"></i>
-																				</span>
+																<span class="green">
+																	<i class="icon-edit bigger-120"></i>
+																</span>
                                                             </a>
                                                         </li>
 
                                                         <li>
                                                             <a href="#" class="tooltip-error" data-rel="tooltip"
                                                                title="Delete">
-																				<span class="red">
-																					<i class="icon-trash bigger-120"></i>
-																				</span>
+																<span class="red">
+																	<i class="icon-trash bigger-120"></i>
+																</span>
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -520,9 +505,6 @@
     }
 
 
-    /*设置日历颜色*/
-    laydate.skin('molv');
-
     /*
      *删除活动
      */
@@ -581,6 +563,7 @@
     }
 
     /*---------------------------学生结束-----------------------------*/
+
 </script>
 </body>
 </html>

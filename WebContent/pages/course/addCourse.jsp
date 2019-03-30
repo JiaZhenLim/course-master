@@ -86,58 +86,6 @@
                         <div class="space-4"></div>
                     </c:if>
 
-                    <%--<div class="form-group">--%>
-                    <%--<label class="col-sm-3 control-label no-padding-right">所属组织--%>
-                    <%--</label>--%>
-
-                    <%--<div class="col-sm-9">--%>
-                    <%--&lt;%&ndash;判断身份，如果是系统管理员，则下拉菜单选择，&ndash;%&gt;--%>
-                    <%--<c:if test="${sessionScope.user.identity == 0 }">--%>
-                    <%--<select name="specialtyid" class="js_select_role col-xs-10 col-sm-5">--%>
-                    <%--<c:forEach items="${majors }" var="major">--%>
-                    <%--<option value="${major.id }">${major.name }</option>--%>
-                    <%--</c:forEach>--%>
-                    <%--</select>--%>
-                    <%--</c:if>--%>
-
-                    <%--&lt;%&ndash;如果是社团管理员，则直接设为只读文本框&ndash;%&gt;--%>
-                    <%--<c:if test="${sessionScope.user.identity == 1 }">--%>
-                    <%--<c:forEach items="${majors }" var="major">--%>
-                    <%--<c:if test="${sessionScope.user.majorid == major.id}">--%>
-                    <%--<input type="text" name="specialtyid" class="js_select_role col-xs-10 col-sm-5"--%>
-                    <%--readonly="readonly" value="${major.name }"/>--%>
-                    <%--</c:if>--%>
-                    <%--</c:forEach>--%>
-                    <%--</c:if>--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="space-4"></div>--%>
-
-
-                    <%--<div class="form-group">--%>
-                    <%--<label class="col-sm-3 control-label no-padding-right">申请人--%>
-                    <%--</label>--%>
-
-                    <%--<div class="col-sm-9">--%>
-                    <%--<c:if test="${sessionScope.user.identity == 0 }">--%>
-                    <%--<select name="teacherid" class="js_select_role col-xs-10 col-sm-5">--%>
-                    <%--<c:forEach items="${teachers }" var="teacher">--%>
-                    <%--<option value="${teacher.id }">${teacher.username }</option>--%>
-                    <%--</c:forEach>--%>
-                    <%--</select>--%>
-                    <%--</c:if>--%>
-                    <%--<c:if test="${sessionScope.user.identity == 1 }">--%>
-                    <%--<c:forEach items="${teachers }" var="teacher">--%>
-                    <%--<c:if test="${sessionScope.user.id==teacher.id}">--%>
-                    <%--<input type="text" name="specialtyid" class="js_select_role col-xs-10 col-sm-5"--%>
-                    <%--readonly="readonly" value="${teacher.username }"/>--%>
-                    <%--</c:if>--%>
-                    <%--</c:forEach>--%>
-                    <%--</c:if>--%>
-                    <%--</div>--%>
-
-                    <%--</div>--%>
-                    <%--<div class="space-4"></div>--%>
 
                     <c:if test="${sessionScope.user.identity == 0 }">
                         <div class="form-group">
@@ -197,11 +145,11 @@
 
 
                     <div class="form-group">
-                        <label class="js_labelName col-sm-3 control-label no-padding-right">活动开始时间
+                        <label class="js_labelName col-sm-3 control-label no-padding-right">活动开始日期和时间
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" name="schooltime"
-                                   class="js_schooltime col-xs-10 col-sm-5"/>
+                            <input type="text" name="schooltime" readonly
+                                   class="js_schooltime col-xs-10 col-sm-5" />
                         </div>
                     </div>
 
@@ -243,7 +191,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right"> 添加日期 </label>
                         <div class="col-sm-9">
-                            <input id="form-field-3" type="text"<%-- onclick="laydate()"--%>
+                            <input id="form-field-3" type="text" readonly
                                    class="js_createTime col-xs-10 col-sm-5" value=""/>
 
                         </div>
@@ -276,19 +224,24 @@
 </div><!-- /.main-content -->
 <script type="text/javascript">
 
+    //绑定元素，使其点击能够使用laydate
+//    laydate.render({
+//        elem: '.js_createTime', //指定元素
+//        format: 'yyyy-MM-dd',
+//        value: new Date()
+//    });
 
+     laydate.render({
+         elem: '.js_schooltime', //指定元素
+         type: 'datetime',      //时间类型
+         format: 'yyyy-MM-dd HH:MM',    //自定义时间
+         trigger: 'click'   //只读
+         ,min:0             //今天以后
+     });
     /**
      添加活动
      */
     function addCourse() {
-// 			$(".js_form").submit();
-
-        var coursenumber = $.trim($(".js_coursenumber").val());
-        if (coursenumber == "" || coursenumber == null) {
-            layer.alert('请输入活动编号!', {icon: 5});
-            return;
-        }
-
         var name = $.trim($(".js_coursename").val());
         if (name == "" || name == null) {
             layer.alert('请输入活动名!', {icon: 5});
@@ -326,16 +279,6 @@
         }
 
         var course = $(".js_form").serialize();
-//        console.log(course);
-//        $.get($(".js_form").attr("action") + "?" + course, function (data) {
-//            if (data == true) {
-//                layer.alert('添加成功!', {icon: 6, time: 2000}, function () {
-//                    window.location.reload();
-//                });
-//            } else {
-//                layer.alert('添加失败!', {icon: 5});
-//            }
-//        });
         $.post($(".js_form").attr("action") + "?createTime=" + $(".js_createTime").val(), course, function (data) {
             if (data == true) {
                 layer.alert('添加成功!', {icon: 6, time: 2000}, function () {
@@ -351,7 +294,7 @@
     function reload() {
         var date = new Date();
         $(".js_coursenumber").val(date.valueOf());
-        $(".js_createTime").val(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDay())
+        $(".js_createTime").val(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate());
     }
 
 

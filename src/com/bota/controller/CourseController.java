@@ -1,5 +1,6 @@
 package com.bota.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -39,9 +40,6 @@ public class CourseController {
     @Autowired
     private TeacherCourseService teacherCourseService;
 
-    /**
-     * 添加活动
-     */
     @RequestMapping("addCourse")
     @ResponseBody
     public boolean addCourse(Course course, String createTime) {
@@ -53,9 +51,9 @@ public class CourseController {
     }
 
 
+
     /**
      * 添加活动页面
-     *
      * @return
      */
     @RequestMapping("addCoursePage")
@@ -70,7 +68,6 @@ public class CourseController {
 
     /***
      * 修改活动页面
-     *
      * @param id
      * @param request
      * @return
@@ -88,7 +85,6 @@ public class CourseController {
 
     /**
      * 查询所有的活动
-     *
      * @return
      */
     @RequestMapping("courseList")

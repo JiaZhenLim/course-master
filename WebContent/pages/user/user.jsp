@@ -126,7 +126,7 @@
                                 <tr>
                                     <th class="center">
                                         <label>
-                                            <input type="checkbox" class="ace"/>
+                                            <input type="checkbox" class="ace" onclick="allOrNotAll(checked)"/>
                                             <span class="lbl"></span>
                                         </label>
                                     </th>
@@ -440,9 +440,6 @@
         /*window.location.href = "userListBySearch.do?pageNum=" + pageNum + "&pageSize=10&search=" + search + "&identity=" + identity + "&classid=" + classid;*/
     }
 
-
-    /*设置日历颜色*/
-    laydate.skin('molv');
 
     function deleteUser(id) {
         layer.confirm('确认要删除吗?', {icon: 3, title: '提示'}, function () {

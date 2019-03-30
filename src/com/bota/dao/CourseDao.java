@@ -21,7 +21,6 @@ public interface CourseDao {
     
     /**
 	 * 根据学号查询该活动是否存在
-	 * @author bota
 	 * @paramCourseNumber
 	 * @return
 	 */

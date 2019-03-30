@@ -8,7 +8,12 @@ function reset(){
 	window.onload = reload();
 }
 
-//绑定元素，使其点击能够使用laydate
-laydate.render({
-    elem: '.js_createTime' //指定元素
-});
+//将所有checkbox类型都和id为allOrNotAll的选中状态一致
+function allOrNotAll(isChecked) {
+    // var isChecked = $().prop("checked");
+    console.log(isChecked);
+    $("input[type='checkbox']").prop("checked", isChecked);
+}
+
+
+
