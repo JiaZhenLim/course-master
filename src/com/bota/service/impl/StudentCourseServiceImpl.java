@@ -131,7 +131,19 @@ public  class StudentCourseServiceImpl implements StudentCourseService{
 		}
 		return false;
 	}
-	
+
+	@Override
+	public boolean deleteById(long[] id, long[] courseId) {
+		for(int i = 0; i < id.length; i++){
+			System.out.println("到service");
+			if(!deleteById(id[i], courseId[i])){
+
+				return false;
+			}
+		}
+		return true;
+	}
+
 	/**
 	 * 根据id删除学生选课
 	 * @paramid

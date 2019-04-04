@@ -110,7 +110,7 @@
 
         var content = $.trim($(".js_content").val());
         if (content == "" || content == null) {
-            layer.alert('请输入修改内容!', {icon: 5});
+            layer.alert('请输入申请备注!', {icon: 5});
             return;
         }
 

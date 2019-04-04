@@ -81,10 +81,8 @@
                                 <thead>
                                 <tr>
                                     <th class="center">
-                                        <label>
-                                            <input type="checkbox" class="ace" onclick="allOrNotAll(checked)"/>
-                                            <span class="lbl"></span>
-                                        </label>
+                                        <input type="checkbox" class="ace" onclick="allOrNotAll(checked)"/>
+                                        <span class="lbl"></span>
                                     </th>
                                     <th>活动编号</th>
                                     <th>活动名称</th>
@@ -105,42 +103,40 @@
                                 <tbody>
                                 <c:forEach items="${courses}" var="course">
                                     <tr>
-                                        <th class="center">
-                                            <label>
-                                                <input type="checkbox" class="ace" id="{user.userNumber}"/>
-                                                <span class="lbl"></span>
-                                            </label>
-                                        </th>
-                                        <th>${course.courseNumber }</th>
-                                        <th>${course.name }</th>
-                                            <%--<th>${course.credit }</th>--%>
+                                        <td class="center">
+                                            <input type="checkbox" name="check" class="ace" id="{user.userNumber}"/>
+                                            <span class="lbl"></span>
+                                        </td>
+                                        <td name="courseNum">${course.courseNumber }</td>
+                                        <td>${course.name }</td>
+                                        <td>${course.credit }</td>
                                         <c:if test="${sessionScope.user.identity != 2 }">
                                             <th>${course.teachername }</th>
                                         </c:if>
-                                        <th>${course.schooltime}</th>
-                                        <th>${course.address }</th>
-                                        <th>${course.mname }</th>
-                                        <th>${course.numberLimit }</th>
+                                        <td>${course.schooltime}</td>
+                                        <td>${course.address }</td>
+                                        <td>${course.name }</td>
+                                        <td>${course.numberLimit }</td>
                                         <c:if test="${sessionScope.user.identity == 0}">
                                             <c:if test="${course.isFinish == 1}">
-                                                <th class="js_th${course.id }">可选</th>
+                                                <td class="js_th${course.id }">可选</td>
                                             </c:if>
                                             <c:if test="${course.isFinish == 0}">
-                                                <th class="js_th${course.id }">不可选</th>
+                                                <td class="js_th${course.id }">不可选</td>
                                             </c:if>
                                         </c:if>
                                         <c:if test="${sessionScope.user.identity != 0}">
                                             <c:if test="${course.numberSpace > 0}">
-                                                <th class="js_th${course.id }">可选|<font size="1"
+                                                <td class="js_th${course.id }">可选|<font size="1"
                                                                                         face="微软雅黑">剩余容量(${course.numberSpace})</font>
-                                                </th>
+                                                </td>
                                             </c:if>
                                             <c:if test="${course.numberSpace <= 0}">
-                                                <th class="js_th${course.id }">不可选|<font color="#FF0000" size="1"
-                                                                                         face="微软雅黑">人数已满</font></th>
+                                                <td class="js_th${course.id }">不可选|<font color="#FF0000" size="1"
+                                                                                         face="微软雅黑">人数已满</font></td>
                                             </c:if>
                                         </c:if>
-                                        <th>${course.time }</th>
+                                        <td>${course.time }</td>
                                         <th>
                                             <!------------------ 管理员模块开始 ----------------------->
                                             <c:if test="${sessionScope.user.identity == 0 }">
@@ -149,7 +145,6 @@
                                                     <a class="blue" href="addCoursePage.do">
                                                         <i class="icon-plus-sign bigger-130"></i>
                                                     </a>
-
 
                                                     <a class="green" href="editCoursePage.do?id=${course.id }">
                                                         <i class="icon-pencil bigger-130"></i>
@@ -430,6 +425,7 @@
                     <!-- PAGE CONTENT ENDS -->
                 </div>
             </div><!-- /.col -->
+
         </div><!-- /.row -->
     </div><!-- /.page-content -->
 </div><!-- /.main-content -->
@@ -444,6 +440,29 @@
     function applyEditCourse(id) {
         window.location.href = "addTeacherCoursePage.do?id=" + id;
     }
+
+//    function applyCheckedEditCourse() {
+//        var courseNums = new Array();
+//        var i = 0;
+//        getCheckedCheckbox().each(function () {
+//                console.log("可以返回选中checkbox");
+//                var row = $(this).parent("td").parent("tr");
+//                courseNums[i++] = row.find("[name='courseNum']").text();
+//            }
+//        );
+//        console.log(courseNums);
+//
+//        $post("applyCheckedEditCourse.do",courseNums,function(){
+//            if(data == true){
+//                layer("申请完成",{icon:6});
+//            }
+//            else{
+//                layer("申请失败，请重试",{icon:5});
+//            }
+//        })
+//
+//    }
+
 
     /*---------------------------组织或社团管理员结束-----------------------------*/
 

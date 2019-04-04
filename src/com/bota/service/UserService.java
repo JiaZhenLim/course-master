@@ -9,19 +9,20 @@ public interface UserService {
 	public List<Map<String, Object>> studentsCourseSelection(long courseId);
 	
 	/**
-	 * 根据学号查询该用户是否存在
+	 * 根据学号查询该用户
 	 * @param userNumber
 	 * @return
 	 */
-	public Map<String, Object> selectUserByUserNumber(long userNumber);
-	
+	public User selectUserByUserNumber(long userNumber);
+//	public Map<String, Object> selectUserByUserNumber(long userNumber);
+
 	
 	/**
 	 * 验证登录信息
 	 * @param user
 	 * @return
 	 */
-	public String verifyByUser(User user, Map<String, Object> dbUser);
+	public String verifyByUser(User user, User dbUser);
 
 	/**
 	 * 修改密码

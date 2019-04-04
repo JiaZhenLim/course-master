@@ -39,12 +39,21 @@ public interface StudentCourseService {
 	 * @return
 	 */
 	public boolean updateById(StudentCourse studentCourse);
+
 	/**
 	 * 根据id删除学生选课
 	 * @param id
 	 * @return
 	 */
 	public boolean deleteById(long id, long courseId);
+
+	/**
+	 * 根据多个id删除多个学生选课
+	 * @param id
+	 * @param courseId
+	 * @return
+	 */
+	public boolean deleteById(long[] id, long[] courseId);
 
 	/**
 	 * 根据id批量删除学生选课

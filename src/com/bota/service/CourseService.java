@@ -12,7 +12,20 @@ public interface CourseService {
 	 * @return
 	 */
 	public String selectCourseByCourseNumber(long courseNumber);
-	
+
+	/**
+	 * 查出多个活动编号的的活动
+	 * @param courseNumber
+	 * @return
+	 */
+	public Course[] selectCourseByCourseNumbers(long[] courseNumber);
+
+	/**
+	 * 判断是否存在
+	 *
+	 */
+	public String isExist(Course course);
+
 	/**
 	 * 修改活动信息
 	 */

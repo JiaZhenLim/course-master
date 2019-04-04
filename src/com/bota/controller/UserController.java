@@ -47,14 +47,17 @@ public class UserController {
     @Autowired
     private CourseService courseService;
 
-    /**
-     * 登陆验证，账号密码正确，跳转到个人中心页面
+    /**√
+     * 登陆验证，账号密码正确，跳转到个人中心页面，用户信息传入session
+     * @param user
+     * @param session
+     * @return String
      */
     @RequestMapping("login")
     @ResponseBody
     public String loginPage(User user, HttpSession session) {
         //获取该用户名的数据库信息
-        Map<String, Object> dbUser = userService.selectUserByUserNumber(user.getUsernumber());
+        User dbUser = userService.selectUserByUserNumber(user.getUsernumber());
 
         //校验用户名和密码，返回状态码
         String result = userService.verifyByUser(user, dbUser);
@@ -73,6 +76,8 @@ public class UserController {
         sessionStatus.setComplete();//最后是调用sessionStatus方法
         response.sendRedirect("indexPage.do");
     }
+
+
 
     /**
      * 跳转到我的信息页面
@@ -327,7 +332,7 @@ public class UserController {
      */
     @RequestMapping("studentListByPage")
     public String selectAllStudent(int pageNum, int pageSize, long teacherId, HttpServletRequest request) {
-        Map<String, Object> paramMap = new HashMap<String, Object>();
+        Map<String, Object> paramMap = new HashMap();
         paramMap.put("teacherId", teacherId);
         commonExecute(pageNum, pageSize, paramMap, request);
         return "user/user";

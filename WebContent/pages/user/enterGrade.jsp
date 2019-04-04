@@ -310,7 +310,12 @@
         var names = new Array();
         var courseNames = new Array();
         var i = 0;
-        $("input[name='check']:checked").each(
+        var checkedCheckbox = getCheckedCheckbox();
+        if(checkedCheckbox.length == 0){
+            layer.msg("没有选中任何学生",{icon: 5});
+            return false;
+        }
+        checkedCheckbox.each(
             function () {
                 //获取所在的行
                 var row = $(this).parent("td").parent("tr");

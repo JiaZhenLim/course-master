@@ -42,7 +42,7 @@
                         Date d = new Date();
                         SimpleDateFormat df = new SimpleDateFormat("EEEE");
                         SimpleDateFormat df1 = new SimpleDateFormat("dd");
-                        SimpleDateFormat df2 = new SimpleDateFormat("M");
+                        SimpleDateFormat df2 = new SimpleDateFormat("MM");
                         SimpleDateFormat df3 = new SimpleDateFormat("yyyy");
                         String week = df.format(d);
                         String day = df1.format(d);

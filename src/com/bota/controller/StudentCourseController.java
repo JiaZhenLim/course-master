@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -337,6 +340,22 @@ public class StudentCourseController {
     @ResponseBody
     public boolean deleteById(long id, long courseId) {
         return studentCourseService.deleteById(id, courseId);
+    }
+
+    /**
+     * 根据多个id删除多个学生选课
+     *
+     * @param id
+     * @param courseId
+     * @return
+     */
+    @RequestMapping(value = "deleteCheckedStudentCourse", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean deleteCheckedById(@RequestParam(value = "id[]") long[] id,
+                              @RequestParam(value = "courseId[]") long[] courseId) {
+        System.out.println("到controller");
+        return studentCourseService.deleteById(id, courseId);
+//        return true;
     }
 
     /**

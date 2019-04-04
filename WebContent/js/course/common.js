@@ -15,5 +15,9 @@ function allOrNotAll(isChecked) {
     $("input[type='checkbox']").prop("checked", isChecked);
 }
 
+function getCheckedCheckbox(){
+	return $('input[name="check"]:checked');
+}
+
 
 

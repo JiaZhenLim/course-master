@@ -10,180 +10,209 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bota.bean.Course;
 import com.bota.dao.CourseDao;
+import com.bota.util.Dictionary;
 import com.bota.dao.TeacherCourseDao;
 import com.bota.service.CourseService;
 
 @Service("courseServiceImpl")
-public class CourseServiceImpl implements CourseService{
+public class CourseServiceImpl implements CourseService {
 
-	@Resource
-	private CourseDao courseDaoImpl;
-	
-	@Resource
-	private CourseDao courseDao;
-	
-	@Resource
-	private TeacherCourseDao teacherCourseDaoImpl;
-	
+    @Resource
+    private CourseDao courseDaoImpl;
 
-	@Override
-	public String selectCourseByCourseNumber(long CourseNumber) {
-		return courseDaoImpl.selectCourseByCourseNumber(CourseNumber);
-	}
+    @Resource
+    private CourseDao courseDao;
 
+    @Resource
+    private TeacherCourseDao teacherCourseDaoImpl;
 
-	@Override
-	public boolean updateCourseById(Course course) {
-		return courseDao.updateByPrimaryKeySelective(course) > 0;
-	}
-	
-	@Override
-	public boolean addCourse(Course course){
-		return courseDao.insertSelective(course) > 0;
-				
-	}
-	
-	
-	/**
-	 * 查询所有的活动
-	 * @return
-	 */
-	@Override
-	public List<Map<String, Object>> selectAllCourse(){
-		return courseDaoImpl.selectAllCourse();
-	}
+    @Override
+    public String isExist(Course course) {
+        if (course == null || course.getId() == 0) {
+            return Dictionary.S_SUCCESS;
+        }
+        return Dictionary.S_FAIL;
+    }
 
-	/**
-	 * 分页查询所有的活动
-	 * @return
-	 */
-	@Override
-	public Map<String, Object> selectAllCourse(int pageNum,int pageSize,Map<String, Object> paramMap){
-		StringBuffer whereSql = new StringBuffer(" where 1=1 ");
-		if(paramMap != null && paramMap.size() > 0){
-			if(paramMap.get("search") != null && !paramMap.get("search").equals("")){
-				whereSql.append(" and (u.username like'%"+paramMap.get("search").toString()+"%' "
-						+ " or c.name like'%"+paramMap.get("search").toString()+"%' or c.courseNumber like'%"+paramMap.get("search").toString()+"%') ");
-			}
-			if(paramMap.get("teacherId") != null &&!paramMap.get("teacherId").equals("") &&  !paramMap.get("teacherId").equals("-1")){
-				whereSql.append(" and c.teacherId = " + paramMap.get("teacherId").toString());
-			}
-			if(paramMap.get("specialtyId") != null && !paramMap.get("specialtyId").equals("") && !paramMap.get("specialtyId").equals("-1")){
-				whereSql.append(" and c.specialtyId="+paramMap.get("specialtyId").toString());
-			}
-		}
-		return courseDaoImpl.selectAllCourse(pageNum,pageSize,whereSql.toString());
-	}
+    @Override
+    public String selectCourseByCourseNumber(long courseNumber) {
+        Course course = courseDaoImpl.selectCourseByCourseNumber(courseNumber);
+        return isExist(course);
+    }
 
-	/**
-	 * 查询前四项活动
-	 * @return
-	 */
-	@Override
-	public Map<String, Object> selectFourCourse(Map<String, Object> paramMap){
-		StringBuffer whereSql = new StringBuffer(" where 1=1 ");
-		return courseDaoImpl.selectFourCourse(whereSql.toString());
-	}
+    @Override
+    public boolean updateCourseById(Course course) {
+        return courseDao.updateByPrimaryKeySelective(course) > 0;
+    }
 
-	/**
-	 * 分页查询所有的活动
-	 * @return
-	 */
-	@Override
-	public Map<String, Object> selectAllCourseByStudent(int pageNum,int pageSize,Map<String, Object> paramMap){
-		StringBuffer whereSql = new StringBuffer(" where 1=1 ");
-		if(paramMap != null && paramMap.size() > 0){
-			
-			if(paramMap.get("isFinish") != null && !paramMap.get("isFinish").equals("") && !paramMap.get("isFinish").equals("-1")){
-				whereSql.append(" and c.isFinish="+paramMap.get("isFinish").toString());
-			}
-			System.out.println(whereSql);
-		}
-		return courseDaoImpl.selectAllCourseByStudent(pageNum,pageSize,whereSql.toString(),paramMap.get("studentId").toString());
-	}
-	
-	
-	
-	/**
-	 * 分页查询所有的活动
-	 * @return
-	 */
-	@Override
-	public Map<String, Object> selectAllCourseByTeacher(int pageNum,int pageSize,Map<String, Object> paramMap){
-		StringBuffer whereSql = new StringBuffer(" where 1=1 ");
-		if(paramMap != null && paramMap.size() > 0){
-			if(paramMap.get("search") != null && !paramMap.get("search").equals("")){
-				whereSql.append(" and (u.username like'%"+paramMap.get("search").toString()+"%' "
-						+ " or c.name like'%"+paramMap.get("search").toString()+"%' or c.courseNumber like'%"+paramMap.get("search").toString()+"%') ");
-			}
-			if(paramMap.get("teacherId") != null &&!paramMap.get("teacherId").equals("") &&  !paramMap.get("teacherId").equals("-1")){
-				whereSql.append(" and c.teacherId = " + paramMap.get("teacherId").toString());
-			}
-			System.out.println(whereSql);
-		}
-		return courseDaoImpl.selectAllCourse(pageNum,pageSize,whereSql.toString());
-	}
-	
-	/**
-	 * 查询活动的数量
-	 * @return 
-	 */
-	@Override
-	public Map<String, Object> selectCourseNumber(){
-		return courseDaoImpl.selectCourseNumber();
-	}
-	
-	/**
-	 * 根据id查询活动
-	 * @param id
-	 * @return
-	 */
-	@Override
-	public Course selectOne(long id){
-		return courseDao.selectByPrimaryKey(id);
-	}
-	/**
-	 * 修改活动的信息
-	 * @paramCourse
-	 * @return
-	 */
-	@Override
-	public boolean updateById(Course course){
-		return courseDao.updateByPrimaryKeySelective(course) > 0;
-	}
-	/**
-	 * 根据id删除活动
-	 * @param id
-	 * @return
-	 */
-	@Override
-	public boolean deleteById(long id){
-		return courseDao.deleteByPrimaryKey(id) > 0;
-	}
-	
-	/**
-	 * 根据id删除活动
-	 * @paramid
-	 * @return
-	 */
-	@Override
-	public boolean deleteByIds(String ids){
-		return courseDao.deleteByPrimaryKeys(ids);
-	}
+    @Override
+    public boolean addCourse(Course course) {
+        return courseDao.insertSelective(course) > 0;
+
+    }
 
 
-	@Override
-	public List<Map<String, Object>> selectCourseByTeacherId(long teacherId) {
-		return courseDaoImpl.selectCourseByTeacherId(teacherId);
-	}
+    /**
+     * 查询所有的活动
+     *
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> selectAllCourse() {
+        return courseDaoImpl.selectAllCourse();
+    }
+
+    /**
+     * 分页查询所有的活动
+     *
+     * @return
+     */
+    @Override
+    public Map<String, Object> selectAllCourse(int pageNum, int pageSize, Map<String, Object> paramMap) {
+        StringBuffer whereSql = new StringBuffer(" where 1=1 ");
+        if (paramMap != null && paramMap.size() > 0) {
+            if (paramMap.get("search") != null && !paramMap.get("search").equals("")) {
+                whereSql.append(" and (u.username like'%" + paramMap.get("search").toString() + "%' "
+                        + " or c.name like'%" + paramMap.get("search").toString() + "%' or c.courseNumber like'%" + paramMap.get("search").toString() + "%') ");
+            }
+            if (paramMap.get("teacherId") != null && !paramMap.get("teacherId").equals("") && !paramMap.get("teacherId").equals("-1")) {
+                whereSql.append(" and c.teacherId = " + paramMap.get("teacherId").toString());
+            }
+            if (paramMap.get("specialtyId") != null && !paramMap.get("specialtyId").equals("") && !paramMap.get("specialtyId").equals("-1")) {
+                whereSql.append(" and c.specialtyId=" + paramMap.get("specialtyId").toString());
+            }
+        }
+        return courseDaoImpl.selectAllCourse(pageNum, pageSize, whereSql.toString());
+    }
+
+    /**
+     * 查询前四项活动
+     *
+     * @return
+     */
+    @Override
+    public Map<String, Object> selectFourCourse(Map<String, Object> paramMap) {
+        StringBuffer whereSql = new StringBuffer(" where 1=1 ");
+        return courseDaoImpl.selectFourCourse(whereSql.toString());
+    }
+
+    /**
+     * 分页查询所有的活动
+     *
+     * @return
+     */
+    @Override
+    public Map<String, Object> selectAllCourseByStudent(int pageNum, int pageSize, Map<String, Object> paramMap) {
+        StringBuffer whereSql = new StringBuffer(" where 1=1 ");
+        if (paramMap != null && paramMap.size() > 0) {
+
+            if (paramMap.get("isFinish") != null && !paramMap.get("isFinish").equals("") && !paramMap.get("isFinish").equals("-1")) {
+                whereSql.append(" and c.isFinish=" + paramMap.get("isFinish").toString());
+            }
+            System.out.println(whereSql);
+        }
+        return courseDaoImpl.selectAllCourseByStudent(pageNum, pageSize, whereSql.toString(), paramMap.get("studentId").toString());
+    }
 
 
-	@Override
-	@Transactional
-	public boolean updateCourse(Course course) {
-		if(teacherCourseDaoImpl.updateOneByCourseId(course.getId(), 2)){
-			return courseDao.updateByPrimaryKeySelective(course) > 0;
-		}
-		return  false;
-	}
+    /**
+     * 分页查询所有的活动
+     *
+     * @return
+     */
+    @Override
+    public Map<String, Object> selectAllCourseByTeacher(int pageNum, int pageSize, Map<String, Object> paramMap) {
+        StringBuffer whereSql = new StringBuffer(" where 1=1 ");
+        if (paramMap != null && paramMap.size() > 0) {
+            if (paramMap.get("search") != null && !paramMap.get("search").equals("")) {
+                whereSql.append(" and (u.username like'%" + paramMap.get("search").toString() + "%' "
+                        + " or c.name like'%" + paramMap.get("search").toString() + "%' or c.courseNumber like'%" + paramMap.get("search").toString() + "%') ");
+            }
+            if (paramMap.get("teacherId") != null && !paramMap.get("teacherId").equals("") && !paramMap.get("teacherId").equals("-1")) {
+                whereSql.append(" and c.teacherId = " + paramMap.get("teacherId").toString());
+            }
+            System.out.println(whereSql);
+        }
+        return courseDaoImpl.selectAllCourse(pageNum, pageSize, whereSql.toString());
+    }
+
+    /**
+     * 查询活动的数量
+     *
+     * @return
+     */
+    @Override
+    public Map<String, Object> selectCourseNumber() {
+        return courseDaoImpl.selectCourseNumber();
+    }
+
+    /**
+     * 根据id查询活动
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Course selectOne(long id) {
+        return courseDao.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public Course[] selectCourseByCourseNumbers(long[] courseNumbers) {
+        Course[] courses = new Course[courseNumbers.length];
+        for (int i = 0; i < courseNumbers.length; i++) {
+            courses[i] = courseDaoImpl.selectCourseByCourseNumber(courseNumbers[i]);
+        }
+
+        return courses;
+    }
+
+    /**
+     * 修改活动的信息
+     *
+     * @return
+     * @paramCourse
+     */
+    @Override
+    public boolean updateById(Course course) {
+        return courseDao.updateByPrimaryKeySelective(course) > 0;
+    }
+
+    /**
+     * 根据id删除活动
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public boolean deleteById(long id) {
+        return courseDao.deleteByPrimaryKey(id) > 0;
+    }
+
+    /**
+     * 根据id删除活动
+     *
+     * @return
+     * @paramid
+     */
+    @Override
+    public boolean deleteByIds(String ids) {
+        return courseDao.deleteByPrimaryKeys(ids);
+    }
+
+
+    @Override
+    public List<Map<String, Object>> selectCourseByTeacherId(long teacherId) {
+        return courseDaoImpl.selectCourseByTeacherId(teacherId);
+    }
+
+
+    @Override
+    @Transactional
+    public boolean updateCourse(Course course) {
+        if (teacherCourseDaoImpl.updateOneByCourseId(course.getId(), 2)) {
+            return courseDao.updateByPrimaryKeySelective(course) > 0;
+        }
+        return false;
+    }
 }

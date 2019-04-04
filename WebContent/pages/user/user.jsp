@@ -27,8 +27,6 @@
                     <a href="javascript:void(0);" onclick="selectStudent(${pageNum})">用户管理
                     </a>
                 </c:if>
-                <!--<a href="userListByPage.do?pageSize=10&pageNum=1">用户管理</a>-->
-                <!--<a href="#">用户管理</a>-->
             </li>
             <li class="active">用户列表</li>
         </ul><!-- .breadcrumb -->
@@ -155,12 +153,12 @@
                                 <tbody>
                                 <c:forEach items="${users}" var="user">
                                     <tr>
-                                        <th class="center">
-                                            <label>
-                                                <input type="checkbox" class="ace"/>
-                                                <span class="lbl"></span>
-                                            </label>
-                                        </th>
+                                        <td hidden name="useId">${user.studentCourseId}</td>
+                                        <td hidden name="courseId">${user.courseId}</td>
+                                        <td class="center">
+                                            <input type="checkbox" name="check" class="ace"/>
+                                            <span class="lbl"></span>
+                                        </td>
                                         <th>${user.userNumber }</th>
                                         <th>${user.username }</th>
                                         <c:if test="${identity == 2 }">
@@ -350,11 +348,21 @@
                 <!-- PAGE CONTENT ENDS -->
             </div><!-- /.col -->
         </div><!-- /.row -->
+
+        <%--批量删除学生--%>
+        <button class="btn  btn-sm btn-danger"
+                onclick="deleteCheckedStudent()">
+            删除选中的学生
+        </button>
+
     </div><!-- /.page-content -->
 </div><!-- /.main-content -->
 <script type="text/javascript">
 
     /*------------组织或社团管理员模块开始---------------*/
+
+
+
     function deleteStudent(id, courseId) {
         layer.confirm('确认要删除该学生吗?', {icon: 3, title: '提示'}, function () {
             $.post("deleteStudentCourse.do", {"id": id, "courseId": courseId}, function (data) {
@@ -369,6 +377,39 @@
         });
     }
 
+    function deleteCheckedStudent() {
+        layer.confirm('确认要删除选中的学生吗?', {icon: 3, title: '提示'}, function () {
+            var id = new Array();
+            var courseId = new Array();
+            var i = 0;
+            var checkedCheckbox = getCheckedCheckbox();
+            if(checkedCheckbox.length == 0){
+                layer.msg("没有选中任何学生!", {icon: 5});
+                return false;
+            }
+            checkedCheckbox.each(function () {
+                var row = $(this).parent('td').parent('tr');
+                console.log(row);
+                id[i] = row.find('[name="useId"]').text();
+                console.log(id[i]);
+                courseId[i++] = row.find('[name="courseId"]').text();
+                console.log(courseId[i-1]);
+            });
+            console.log(id);
+            console.log(courseId);
+            $.post("deleteCheckedStudentCourse.do", {"id": id, "courseId": courseId}, function (data) {
+                if (data == true) {
+                    layer.msg('删除成功!', {icon: 6, time: 1000}, function () {
+                        history.go(0);
+                    });
+                } else {
+                    layer.msg("删除失败!", {icon: 5});
+                }
+            });
+
+            console.log("异步发送已经加载完");
+        });
+    }
 
     layer.config({
         extend: 'extend/layer.ext.js'
