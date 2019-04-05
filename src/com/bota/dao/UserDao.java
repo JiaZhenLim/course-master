@@ -25,8 +25,10 @@ public interface UserDao {
 	 * @param userNumber
 	 * @return
 	 */
+//	public User selectUserByUserNumber(long userNumber);
 	public Map<String, Object> selectUserByUserNumber(long userNumber);
-	
+
+
 //	/**
 //	 * 验证登录信息
 //	 * @paramusernumber 学号或工号

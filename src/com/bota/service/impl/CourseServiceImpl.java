@@ -1,10 +1,12 @@
 package com.bota.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.bota.util.DateStrConvert;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -148,7 +150,6 @@ public class CourseServiceImpl implements CourseService {
 
     /**
      * 根据id查询活动
-     *
      * @param id
      * @return
      */
@@ -214,5 +215,10 @@ public class CourseServiceImpl implements CourseService {
             return courseDao.updateByPrimaryKeySelective(course) > 0;
         }
         return false;
+    }
+
+    @Override
+    public List<Course> selectCourseByCreateTime(String createTime){
+        return courseDao.selectCourseByCreateTime(createTime);
     }
 }

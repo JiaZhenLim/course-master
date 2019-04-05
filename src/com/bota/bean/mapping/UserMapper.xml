@@ -19,6 +19,14 @@
   <sql id="Base_Column_List" >
     id, userNumber, username, password, majorid, classid, collegeid, credit, identity, imageUrl, sex, createTime, email
   </sql>
+
+  <select id="selectUserByUserNumber" resultType="com.bota.bean.User" parameterType="java.lang.Long">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM user
+    WHERE usernumber = #{userNumber,jdbcType=BIGINT}
+  </select>
+
   <select id="selectByPrimaryKey" resultType="com.bota.bean.User" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />

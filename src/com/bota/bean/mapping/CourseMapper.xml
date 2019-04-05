@@ -20,6 +20,13 @@
     id, courseNumber, name, credit, teacherId, schooltime, address, specialtyId, numberLimit, 
     numberSpace, isFinish, createTime, detail
   </sql>
+
+  <select id="selectCourseByCreateTime" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select *
+    from course
+    WHERE createtime = #{createTime,jdbcType=TIMESTAMP};
+  </select>
+
   <select id="selectByPrimaryKey" resultType="com.bota.bean.Course" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />

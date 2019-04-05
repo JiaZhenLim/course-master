@@ -13,8 +13,8 @@ public interface UserService {
 	 * @param userNumber
 	 * @return
 	 */
-	public User selectUserByUserNumber(long userNumber);
-//	public Map<String, Object> selectUserByUserNumber(long userNumber);
+//	public User selectUserByUserNumber(long userNumber);
+	public Map<String, Object> selectUserByUserNumber(long userNumber);
 
 	
 	/**
@@ -22,7 +22,8 @@ public interface UserService {
 	 * @param user
 	 * @return
 	 */
-	public String verifyByUser(User user, User dbUser);
+//	public String verifyByUser(User user, User dbUser);
+	public String verifyByUser(User user, Map<String, Object> dbUser);
 
 	/**
 	 * 修改密码

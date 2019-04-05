@@ -1,9 +1,11 @@
 package com.bota.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.bota.bean.Course;
+import com.bota.bean.User;
 
 public interface CourseDao {
     int deleteByPrimaryKey(Long id);
@@ -24,8 +26,9 @@ public interface CourseDao {
 	 * @paramCourseNumber
 	 * @return
 	 */
-	public String selectCourseByCourseNumber(long courseNumber);
-	
+//	public String selectCourseByCourseNumber(long courseNumber);
+	public Course selectCourseByCourseNumber(long courseNumber);
+
 	/**
 	 * 查询所有的活动
 	 * @return
@@ -81,4 +84,11 @@ public interface CourseDao {
 	 * @return
 	 */
 	public boolean updateSpacePerson(int flag, long courseId);
+
+	/**
+	 * 根据创建时间查找活动
+	 * @param createTime
+	 * @return
+	 */
+	public List<Course> selectCourseByCreateTime(String createTime);
 }

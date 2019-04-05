@@ -121,4 +121,11 @@ public interface CourseService {
 	 * @param course
 	 */
 	public boolean updateCourse(Course course);
+
+	/**
+	 * 根据创建时间查找活动
+	 * @param createTime
+	 * @return
+	 */
+	public List<Course> selectCourseByCreateTime(String createTime);
 }

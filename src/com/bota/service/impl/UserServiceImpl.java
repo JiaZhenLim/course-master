@@ -26,14 +26,14 @@ public class UserServiceImpl implements UserService {
         return userDaoImpl.studentsCourseSelection(courseId);
     }
 
-    //    @Override
-//    public Map<String, Object> selectUserByUserNumber(long userNumber) {
-//        return userDaoImpl.selectUserByUserNumber(userNumber);
-//    }
     @Override
-    public User selectUserByUserNumber(long userNumber) {
+    public Map<String, Object> selectUserByUserNumber(long userNumber) {
         return userDaoImpl.selectUserByUserNumber(userNumber);
     }
+//    @Override
+//    public User selectUserByUserNumber(long userNumber) {
+//        return userDao.selectUserByUserNumber(userNumber);
+//    }
 
     @Override
     public Map<String, Object> selectOneByUserNumber(long userNumber) {
@@ -41,16 +41,31 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Override
-    public String verifyByUser(User user, User dbUser) {
+//    @Override
+//    public String verifyByUser(User user, User dbUser) {
+//
+//        if (dbUser == null || dbUser.getId() == null) {
+//            return Dictionary.S_NOT_EXIST;
+//        } else if (user.getUsernumber().longValue() != dbUser.getUsernumber().longValue()) {
+//            return Dictionary.S_FAIL;
+//        } else if (user.getIdentity().intValue() != dbUser.getIdentity().intValue()) {
+//            return Dictionary.S_ROLE_ERR;
+//        } else if (!user.getPassword().equals(dbUser.getPassword())) {
+//            return Dictionary.S_PWD_ERR;
+//        }
+//        return Dictionary.S_SUCCESS;
+//    }
 
-        if (dbUser == null || dbUser.getId() == null) {
+    @Override
+    public String verifyByUser(User user, Map<String, Object> dbUser) {
+
+        if (dbUser == null || dbUser.get("id") == null) {
             return Dictionary.S_NOT_EXIST;
-        } else if (user.getUsernumber().longValue() != dbUser.getUsernumber().longValue()) {
+        } else if (user.getUsernumber().longValue() != ((Long)dbUser.get("userNumber")).longValue()) {
             return Dictionary.S_FAIL;
-        } else if (user.getIdentity().intValue() != dbUser.getIdentity().intValue()) {
+        } else if (user.getIdentity().intValue() != ((Integer)dbUser.get("identity")).intValue()) {
             return Dictionary.S_ROLE_ERR;
-        } else if (!user.getPassword().equals(dbUser.getPassword())) {
+        } else if (!user.getPassword().equals(dbUser.get("password"))) {
             return Dictionary.S_PWD_ERR;
         }
         return Dictionary.S_SUCCESS;

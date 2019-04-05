@@ -43,14 +43,18 @@ public class CourseDaoImpl extends CommonDaoImpl<Course> implements CourseDao{
 	}
 	
 	@Override
-	public String selectCourseByCourseNumber(long courseNumber) {
-		String sql = "select * from course where courseNumber="+courseNumber;
-		Map<String, Object> map = super.findBySql(sql);
-		if(map != null && map.size() > 0){
-			return Dictionary.S_SUCCESS;
-		}
-		return Dictionary.S_FAIL;
+	public Course selectCourseByCourseNumber(long courseNumber) {
+		return null;
 	}
+//@Override
+//	public String selectCourseByCourseNumber(long courseNumber) {
+//		String sql = "select * from course where courseNumber="+courseNumber;
+//		Map<String, Object> map = super.findBySql(sql);
+//		if(map != null && map.size() > 0){
+//			return Dictionary.S_SUCCESS;
+//		}
+//		return Dictionary.S_FAIL;
+//	}
 
 	
 	@Override
@@ -148,6 +152,12 @@ public class CourseDaoImpl extends CommonDaoImpl<Course> implements CourseDao{
 	public boolean updateSpacePerson(int flag,long courseId) {
 		String sql = "update course set numberSpace = numberSpace + "+ flag + " where id="+courseId;
 		return super.updateClass(sql);
+	}
+
+	//test
+	@Override
+	public List<Course> selectCourseByCreateTime(String createTime) {
+		return null;
 	}
 
 }

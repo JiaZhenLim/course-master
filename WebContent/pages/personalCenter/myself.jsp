@@ -37,7 +37,7 @@
                         <label class="col-sm-3 control-label no-padding-right">我的头像:</label>
                         <div class="col-sm-9">
                             <label class="col-sm-5 col-xs-10">
-                                <img src="${ctx }/${sessionScope.user.imageurl}" class="js_imgUrl img-circle"
+                                <img src="${ctx }/${sessionScope.user.imageUrl}" class="js_imgUrl img-circle"
                                      width="140" height="140">
                             </label>
                         </div>

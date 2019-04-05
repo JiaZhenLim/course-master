@@ -29,7 +29,7 @@
             <ul class="nav ace-nav">
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="${ctx }/${sessionScope.user.imageurl}" alt="your Photo"/>
+                        <img class="nav-user-photo" src="${ctx }/${sessionScope.user.imageUrl}" alt="your Photo"/>
                         <span class="user-info">
                             <small>Welcome,</small>
                             <small>${sessionScope.user.username}</small>

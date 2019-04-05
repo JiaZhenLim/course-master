@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -315,6 +317,23 @@ public class CourseController {
     }
 
 
+    /**
+     * 根据时间查询活动
+     */
+    @RequestMapping("selectCourseByCreateTime")
+    public List<Course> selectCourseByCreateTime(String createTime){
+        List<Course> courses = courseService.selectCourseByCreateTime(createTime);
+        System.out.println("course");
+        return courses;
 
+    }
 
+    public static void main(String[] args) {
+//        SqlSessionFactoryBean sqlSessionFactoryBean = null;
+//        MapperScannerConfigurer mapperScannerConfigurer = null;
+//
+//        CourseController courseController = new CourseController();
+//        Course course =  courseController.selectCourseByCreateTime("selectCourseByCreateTime.do?2019-03-03 00:00:00");
+//        System.out.println(course);
+    }
 }

@@ -57,7 +57,8 @@ public class UserController {
     @ResponseBody
     public String loginPage(User user, HttpSession session) {
         //获取该用户名的数据库信息
-        User dbUser = userService.selectUserByUserNumber(user.getUsernumber());
+//        User dbUser = userService.selectUserByUserNumber(user.getUsernumber());
+        Map<String, Object> dbUser = userService.selectUserByUserNumber(user.getUsernumber());
 
         //校验用户名和密码，返回状态码
         String result = userService.verifyByUser(user, dbUser);
@@ -250,10 +251,8 @@ public class UserController {
 
     /**
      * 分页查询所有的用户（管理员打开的页面）
-     *
      * @return
      */
-
     @RequestMapping("userListBySearch")
     public ModelAndView selectAllUsers(int pageNum, int pageSize, String identity, String search, String collegeid) {/*
     public ModelAndView selectAllUsers(int pageNum, int pageSize, String identity, String search, String classid, String collegeid) {*/

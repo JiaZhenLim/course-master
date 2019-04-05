@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.bota.bean.Course;
 import org.springframework.stereotype.Repository;
 
 import com.bota.bean.User;
@@ -66,6 +67,10 @@ public class UserDaoImpl extends CommonDaoImpl<User> implements UserDao{
 		return resultList;
 	}
 
+//	@Override
+//	public User selectUserByUserNumber(long userNumber) {
+//		return null;
+//	}
 	@Override
 	public Map<String, Object> selectUserByUserNumber(long userNumber) {
 		String sql = "select * from user where userNumber="+userNumber;
